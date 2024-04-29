@@ -19,11 +19,12 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-
+const database = client.db("tourism");
+const places = database.collection("places");
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
 
     app.post("/places", async (req, res) => {
       const newData = req.body;
