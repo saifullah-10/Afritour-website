@@ -55,14 +55,6 @@ async function run() {
         res.send("Internal Server Error");
       }
     });
-    app.get("/places", async (req, res) => {
-      try {
-        const cursor = await places.find().toArray();
-        res.send(cursor);
-      } catch {
-        res.send("Server Error");
-      }
-    });
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
