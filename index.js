@@ -37,7 +37,24 @@ async function run() {
     app.put("/places/update/:id", async (req, res) => {
       const userId = req.params.id;
       const data = req.body;
+      const filter = { _id: new ObjectId(userId) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          photoURL: data.photoURL,
+          spotName: data.spotName,
+          countryName: data.countryName,
+          location: data.location,
+          description: data.description,
+          cost: data.cost,
+          season: data.season,
+          travelTime: data.travelTime,
+          totalVisitor: data.totalVisitor,
+        },
+      };
       console.log(data, userId);
+      const result = await places.updateOne(filter, updateDoc, options);
+      res.send(result);
     });
 
     app.get("/places/id/:id", async (req, res) => {
