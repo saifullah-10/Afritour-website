@@ -20,9 +20,6 @@ const client = new MongoClient(uri, {
   },
 });
 
-const database = client.db("tourism");
-const places = database.collection("places");
-
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
@@ -46,7 +43,7 @@ async function run() {
     app.get("/places/:amount", async (req, res) => {
       const dataAmount = req.params.amount;
       try {
-        const cursor = await places.find().toArray(); // Convert cursor to array
+        const cursor = await places.find().toArray();
         const data = cursor.slice(0, dataAmount);
         res.send(data);
       } catch (err) {
