@@ -26,11 +26,6 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
 
-    app.post("/places", async (req, res) => {
-      const newData = req.body;
-      const result = await places.insertOne(newData);
-      res.send(result);
-    });
     app.get("/places/id/:id", async (req, res) => {
       const query = { _id: new ObjectId(req.params.id) };
 
