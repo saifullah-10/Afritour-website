@@ -34,6 +34,12 @@ async function run() {
       res.send(result);
     });
 
+    app.put("/places/update/:id", async (req, res) => {
+      const userId = req.params.id;
+      const data = req.body;
+      console.log(data, userId);
+    });
+
     app.get("/places/id/:id", async (req, res) => {
       const query = { _id: new ObjectId(req.params.id) };
 
