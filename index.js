@@ -23,6 +23,7 @@ const client = new MongoClient(uri, {
 });
 const database = client.db("tourism");
 const places = database.collection("places");
+const countries = database.collection("countries");
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
@@ -72,6 +73,14 @@ async function run() {
       const query = { _id: new ObjectId(deleteId) };
       const result = await places.deleteOne(query);
       res.send(result);
+    });
+    app.get("/countries", async (req, res) => {
+      try {
+        const cursor = await countries.find().toArray();
+        res.send(cursor);
+      } catch (err) {
+        console.error("error fatching data", err);
+      }
     });
     app.get("/places/:amount", async (req, res) => {
       const dataAmount = req.params.amount;
