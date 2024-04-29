@@ -6,7 +6,9 @@ require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+// middleware
+app.use(cors());
+app.use(express.json());
 // DB Code
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.kpsyb7k.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
@@ -25,6 +27,12 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
+
+    app.post("/places", async (req, res) => {
+      const newData = req.body;
+      const result = await places.insertOne(newData);
+      res.send(result);
+    });
 
     app.get("/places/id/:id", async (req, res) => {
       const query = { _id: new ObjectId(req.params.id) };
