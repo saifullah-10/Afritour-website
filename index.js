@@ -26,7 +26,7 @@ const places = database.collection("places");
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    // await client.connect();
+    await client.connect();
 
     app.post("/places", async (req, res) => {
       const newData = req.body;
@@ -52,7 +52,7 @@ async function run() {
           totalVisitor: data.totalVisitor,
         },
       };
-      console.log(data, userId);
+
       const result = await places.updateOne(filter, updateDoc, options);
       res.send(result);
     });
@@ -66,6 +66,12 @@ async function run() {
       } catch {
         res.send("server error");
       }
+    });
+    app.delete("/places/delete/:id", async (req, res) => {
+      const deleteId = req.params.id;
+      const query = { _id: new ObjectId(deleteId) };
+      const result = await places.deleteOne(query);
+      res.send(result);
     });
     app.get("/places/:amount", async (req, res) => {
       const dataAmount = req.params.amount;
