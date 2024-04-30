@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
 
@@ -121,11 +120,6 @@ async function run() {
 run().catch(console.dir);
 
 // DB Code
-
-// Middleware
-app.use(bodyParser.json());
-app.use(cors());
-app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("server is running");
