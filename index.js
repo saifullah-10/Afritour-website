@@ -82,6 +82,13 @@ async function run() {
         console.error("error fatching data", err);
       }
     });
+    app.get("/places/country/:country", async (req, res) => {
+      const country = req.params.country;
+      console.log(country);
+      const query = { countryName: country };
+      const cursor = await places.find(query).toArray();
+      console.log(cursor);
+    });
     app.get("/places/:amount", async (req, res) => {
       const dataAmount = req.params.amount;
       try {
